@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const { getStudentsByCourse, getSubjects, getStudent, getStudents, getStudentsByStatus, getStudentsByConclusionYear, filterStudentsByStatus, filterStudentsByConclusionYear, getConclusionYears } = require('./modules/alunos.js');
-const { getCourses } = require('./modules/cursos');
+const { getStudentsByCourse, getSubjects, getStudent, getStudents, getStudentsByStatus, getStudentsByConclusionYear, filterStudentsByStatus, filterStudentsByConclusionYear, getConclusionYears } = require('../modules/alunos.js');
+const { getCourses } = require('../modules/cursos');
 
 const app = express()
 
@@ -15,7 +15,7 @@ app.use((request, response, next) => {
     next()
 });
 
-app.get('/cursos', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/cursos', cors(), async (request, response, next) => {
     let courses = getCourses()
 
     if (courses) {
@@ -27,7 +27,7 @@ app.get('/cursos', cors(), async (request, response, next) => {
 });
 
 // Endpoint para listar todos os alunos
-app.get('/alunos', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/alunos', cors(), async (request, response, next) => {
     let studentsList = getStudents();
 
     if (studentsList) {
@@ -39,7 +39,7 @@ app.get('/alunos', cors(), async (request, response, next) => {
 });
 
 // Endpoint para listar todos os alunos de um curso
-app.get('/alunos/curso/?', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/alunos/curso/?', cors(), async (request, response, next) => {
     let course = request.query.curso;
     let status = request.query.status;
     let conclusionDate = request.query.conclusao;
@@ -61,7 +61,7 @@ app.get('/alunos/curso/?', cors(), async (request, response, next) => {
 });
 
 // Endpoint para listar as informacoes de um aluno pelo numero de matricula
-app.get('/aluno/:matricula', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/aluno/:matricula', cors(), async (request, response, next) => {
     let studentEnrollment = request.params.matricula;
     let studentInfo = getStudent(studentEnrollment);
 
@@ -74,7 +74,7 @@ app.get('/aluno/:matricula', cors(), async (request, response, next) => {
 });
 
 // Endpoint para listar as disciplinas de um aluno pela matricula
-app.get('/:matricula/disciplinas', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/:matricula/disciplinas', cors(), async (request, response, next) => {
     let studentEnrollment = request.params.matricula;
     let studentInfo = getStudent(studentEnrollment);
 
@@ -89,7 +89,7 @@ app.get('/:matricula/disciplinas', cors(), async (request, response, next) => {
 });
 
 // Endpoint para listar alunos a partir de um status
-app.get('/alunos/status/:status', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/alunos/status/:status', cors(), async (request, response, next) => {
     let status = request.params.status;
     let studentsList = getStudentsByStatus(status);
 
@@ -102,7 +102,7 @@ app.get('/alunos/status/:status', cors(), async (request, response, next) => {
 });
 
 // Endpoint para listar alunos a partir de um ano de conclusao
-app.get('/alunos/conclusao/:data', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/alunos/conclusao/:data', cors(), async (request, response, next) => {
     let date = request.params.data;
     let studentsList = getStudentsByConclusionYear(date);
 
@@ -114,7 +114,7 @@ app.get('/alunos/conclusao/:data', cors(), async (request, response, next) => {
     }
 });
 
-app.get('/conclusao/?', cors(), async (request, response, next) => {
+app.get('/.netlify/functions/api/conclusao/?', cors(), async (request, response, next) => {
     let course = request.query.curso;
     let status = request.query.status;
 
@@ -128,6 +128,4 @@ app.get('/conclusao/?', cors(), async (request, response, next) => {
     }
 });
 
-app.listen(8080, function() {
-    console.log('Server waiting for requests...');
-});
+module.exports = app;
