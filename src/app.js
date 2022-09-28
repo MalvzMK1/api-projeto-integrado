@@ -112,9 +112,9 @@ app.get('/.netlify/functions/api/alunos/conclusao/:data', cors(), async (request
 });
 
 app.get('/.netlify/functions/api/conclusao/?', cors(), async (request, response, next) => {
-    const { course, status } = request.query;
+    const { curso, status } = request.query;
 
-    const conclusionYears = getConclusionYears(course, status);
+    const conclusionYears = getConclusionYears(curso, status);
 
     if (conclusionYears) {
         response.status(200).json(conclusionYears);
