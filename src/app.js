@@ -87,7 +87,7 @@ app.get('/.netlify/functions/api/:matricula/disciplinas', cors(), async (request
 
 // Endpoint para listar alunos a partir de um status
 app.get('/.netlify/functions/api/alunos/status/:status', cors(), async (request, response, next) => {
-    const { status } = req.params;
+    const { status } = request.params;
     
     const studentsList = getStudentsByStatus(status);
 
