@@ -52,7 +52,7 @@ app.get('/.netlify/functions/api/alunos/curso/?', cors(), async (request, respon
     }
 
     if (studentsList) {
-        response.status(200).json(studentsList);
+        response.status(200).json({ studentsList });
     } else {
         response.status(404);
     }
