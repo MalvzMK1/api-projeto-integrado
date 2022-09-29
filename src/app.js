@@ -20,7 +20,7 @@ app.get('/.netlify/functions/api/cursos', cors(), async (request, response, next
     const courses = getCourses()
 
     if (courses) {
-        response.status(200).json(courses);
+        response.status(200).json({ courses });
     } else {
         response.status(404);
     }
@@ -31,7 +31,7 @@ app.get('/.netlify/functions/api/alunos', cors(), async (request, response, next
     const studentsList = getStudents();
 
     if (studentsList) {
-        response.status(200).json(studentsList);
+        response.status(200).json({ studentsList });
     } else {
         response.status(404);
     }
@@ -64,7 +64,7 @@ app.get('/.netlify/functions/api/aluno/:matricula', cors(), async (request, resp
     const studentInfo = getStudent(studentEnrollment);
 
     if (studentInfo) {
-        response.status(200).json(studentInfo);
+        response.status(200).json({ studentInfo });
     } else {
         response.status(404);
     }
@@ -79,7 +79,7 @@ app.get('/.netlify/functions/api/:matricula/disciplinas', cors(), async (request
     const subjects = getSubjects(studentInfo)
 
     if (subjects) {
-        response.status(200).json(subjects);
+        response.status(200).json({ subjects });
     } else {
         response.status(404);
     }
@@ -92,7 +92,7 @@ app.get('/.netlify/functions/api/alunos/status/:status', cors(), async (request,
     const studentsList = getStudentsByStatus(status);
 
     if (studentsList) {
-        response.status(200).json(studentsList);
+        response.status(200).json({ studentsList });
     } else {
         response.status(404);
     }
@@ -105,7 +105,7 @@ app.get('/.netlify/functions/api/alunos/conclusao/:data', cors(), async (request
     const studentsList = getStudentsByConclusionYear(data);
 
     if (studentsList) {
-        response.status(200).json(studentsList);
+        response.status(200).json({ studentsList });
     } else {
         response.status(404);
     }
@@ -117,7 +117,7 @@ app.get('/.netlify/functions/api/conclusao/?', cors(), async (request, response,
     const conclusionYears = getConclusionYears(curso, status);
 
     if (conclusionYears) {
-        response.status(200).json(conclusionYears);
+        response.status(200).json({ conclusionYears });
     } else {
         response.status(500);
     }
